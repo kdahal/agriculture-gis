@@ -193,8 +193,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ for sustainable agriculture.** Questions? Open an [issue](https://github.com/kdahal/agriculture-gis/issues) or reach out on X [@kdahal](https://x.com/kdahal).
+**Built with ❤️ for sustainable agriculture.** Questions? Open an [issue](https://github.com/kdahal/agriculture-gis/issues) or reach out on X [@kdahal](https://x.com/kumdahal).
 
 <div align="center">
-  <sub>© 2025 Krish Dahal. Powered by OpenWrt & Leaflet.</sub>
+  <sub>© 2025 Kumar Dahal. Powered by OpenWrt & Leaflet.</sub>
 </div>
