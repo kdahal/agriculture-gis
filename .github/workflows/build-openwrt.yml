@@ -1,0 +1,58 @@
+name: Build OpenWrt
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        pip install black flake8 pytest shellcheck-py
+
+    - name: Lint Python
+      run: |
+        black --check .
+        flake8 .
+
+    - name: Lint Bash
+      run: |
+        shellcheck scripts/*.sh configs/*.sh
+
+    - name: Lint JS
+      run: |
+        npm install -g eslint
+        eslint gis-web/*.js
+
+    - name: Run Tests
+      run: |
+        pytest tests/
+
+    - name: Build OpenWrt Firmware
+      run: |
+        docker run --rm -v "$(pwd)/openwrt-custom:/builder" openwrt/sdk:ath79-generic /bin/bash -c "
+          cd /builder && 
+          ./build.sh
+        "
+
+    - name: Upload Firmware Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: openwrt-firmware
+        path: openwrt-custom/bin/targets/ath79/generic/*.bin
+        retention-days: 30
