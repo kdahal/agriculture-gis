@@ -55,6 +55,26 @@ agriculture-gis/
 - UAV hardware with 802.11s-compatible WiFi (e.g., Atheros chips).
 - GPS modules on drones.
 
+## 🔄 CI/CD Status
+[![CI Build](https://github.com/kdahal/agriculture-gis/workflows/Build%20OpenWrt/badge.svg)](https://github.com/kdahal/agriculture-gis/actions)
+
+## 🛡️ Production Readiness Checklist
+Before deploying to a live farm:
+- [ ] Run CI to build/test firmware.
+- [ ] Harden security (see [docs/security-hardening.md](docs/security-hardening.md)).
+- [ ] Set up ground station with Docker (see [docs/production-deployment.md](docs/production-deployment.md)).
+- [ ] Test end-to-end with 90+ node sim (`pytest tests/`).
+- [ ] Configure env vars/secrets (no defaults in repo).
+- [ ] Monitor with Prometheus (optional, in docs).
+
+## 🚀 Production Deployment
+For scalable, reliable ops:
+- Use Docker for ground station (MQTT + GIS dashboard).
+- Enable auto-updates via `opkg`.
+- Scale swarms with Kubernetes (ROS2 optional).
+
+See [docs/production-deployment.md](docs/production-deployment.md) for full guide.
+
 ### 1. Clone the Repo
 ```bash
 git clone https://github.com/kdahal/agriculture-gis.git
