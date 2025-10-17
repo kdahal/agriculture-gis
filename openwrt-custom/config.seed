@@ -1,0 +1,5 @@
+CONFIG_TARGET_PROFILE="generic"
+CONFIG_PACKAGE_kmod-80211s=y
+CONFIG_PACKAGE_luci=y
+CONFIG_PACKAGE_luci-app-firewall=y
+CONFIG_PACKAGE_mesh11sd=y  # If feed added later
