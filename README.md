@@ -6,7 +6,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/kdahal/agriculture-gis)](https://github.com/kdahal/agriculture-gis/network)
 
 
-
+![Architecture Diagram](https://kdahal.github.io/kresume/images/david-henrichs-72AYEEBJpz4-unsplash.jpg) <!-- Replace with actual diagram if available -->
 
 Welcome to **Vehicle Tracking and Agriculture GIS**! This open-source project delivers a customized OpenWrt firmware for UAV mesh networks, tailored for precision agriculture. It leverages 802.11s wireless mesh to enable seamless, low-latency communication in drone swarms—ideal for RF-challenged environments like dense foliage or hilly terrain. Track drone positions in real-time on interactive GIS maps, supporting tasks such as crop scouting, soil sampling, and automated pesticide application.
 
@@ -100,8 +100,6 @@ python3 tests/drone-sim.py
 For full setup, check [docs/setup-guide.md](docs/setup-guide.md).
 
 ## 🏛️ Architecture Overview
-
-![Architecture Diagram](https://via.placeholder.com/800x400/4CAF50/FFFFFF?text=Mesh+UAV+Architecture) <!-- Replace with actual diagram if available -->
 
 - **Mesh Core**: 802.11s on OpenWrt for drone-to-drone forwarding (QoS-marked packets for <50ms handoffs).
 - **Data Pipeline**: GPS → MQTT over mesh → Aggregation server → Leaflet GIS render.
