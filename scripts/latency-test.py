@@ -45,9 +45,7 @@ def run_iperf_test(nodes, duration=10):
             # Parse avg latency (simplistic; improve for prod)
             words = result.stdout.split()
             last_word = words[-1] if words else "0"
-            return (
-                float(last_word.rstrip("ms")) if "ms" in last_word else 0.0
-            )
+            return float(last_word.rstrip("ms")) if "ms" in last_word else 0.0
         else:
             logger.error(f"Test failed: {result.stderr}")
             return None
