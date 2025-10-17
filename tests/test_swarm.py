@@ -1,4 +1,4 @@
-import pytest
+import pytest  # noqa: F401
 import subprocess
 from scripts.latency_test import run_iperf_test  # If modularized
 
