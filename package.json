@@ -1,0 +1,30 @@
+{
+  "name": "agriculture-gis",
+  "version": "1.0.0",
+  "description": "[![GitHub stars](https://img.shields.io/github/stars/kdahal/agriculture-gis?style=social)](https://github.com/kdahal/agriculture-gis)\r [![GitHub license](https://img.shields.io/github/license/kdahal/agriculture-gis)](https://github.com/kdahal/agriculture-gis/blob/main/LICENSE)\r [![GitHub issues](https://img.shields.io/github/issues/kdahal/agriculture-gis)](https://github.com/kdahal/agriculture-gis/issues)\r [![GitHub forks](https://img.shields.io/github/forks/kdahal/agriculture-gis)](https://github.com/kdahal/agriculture-gis/network)",
+  "main": "eslint.config.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdahal/agriculture-gis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kdahal/agriculture-gis/issues"
+  },
+  "homepage": "https://github.com/kdahal/agriculture-gis#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "eslint": "^9.37.0",
+    "globals": "^16.4.0"
+  },
+  "type": "module"
+}

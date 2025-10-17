@@ -1,8 +1,8 @@
 // Initialize map centered on farm (example coords)
 var map = L.map('map').setView([40.7128, -74.0060], 13);  // Replace with farm lat/lng
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
+    attribution: '&copy; OpenStreetMap contributors',
+}).addTo(map);  // Added trailing comma to options object
 
 // Drone markers array
 var drones = L.layerGroup().addTo(map);
