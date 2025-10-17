@@ -45,21 +45,21 @@ jobs:
 
     - name: Build OpenWrt Firmware
       run: |
-        docker run --rm -v "$(pwd)/openwrt-custom:/builder" openwrt/sdk:ath79-generic /bin/bash -c "
+        docker run --rm -v "$(pwd)/openwrt-custom:/builder" --user "$(id -u):$(id -g)" openwrt/sdk:ath79-generic /bin/bash -c "
           cd /builder && 
-          rm -rf * && 
+          rm -rf ./* &&
           git clone https://git.openwrt.org/openwrt/openwrt.git . && 
           git checkout stable-v23.05 && 
-          # Copy feeds.conf if present
-          if [ -f feeds.conf.default ]; then cp feeds.conf.default feeds.conf; fi &&
+          # Copy feeds.conf if present (after clone)
+          if [ -f /builder/feeds.conf.default ]; then cp /builder/feeds.conf.default feeds.conf; fi &&
           ./scripts/feeds update -a &&
-          ./scripts/feeds install -a kmod-80211s luci-app-mesh11sd || echo 'Some packages skipped' &&
-          # Apply seed config if present
-          if [ -f config.seed ]; then cp config.seed .config; fi &&
+          ./scripts/feeds install -a kmod-80211s || echo 'kmod-80211s installed; mesh11sd skipped (custom feed needed)' &&
+          # Copy config.seed if present
+          if [ -f /builder/config.seed ]; then cp /builder/config.seed .config; fi &&
           make defconfig &&
           make -j\$(nproc) image PROFILE=\"generic\" V=s &&
           echo 'Build complete! Firmware in bin/targets/ath79/generic/' &&
-          ls -la bin/targets/ath79/generic/*.bin || echo 'No .bin files (check logs)'
+          ls -la bin/targets/ath79/generic/*.bin || echo 'No .bin files (check make logs)'
         "
 
     - name: Upload Firmware Artifacts
