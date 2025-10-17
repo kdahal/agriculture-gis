@@ -36,8 +36,8 @@ jobs:
 
     - name: Lint JS
       run: |
-        npm install -g eslint
-        eslint gis-web/*.js
+        npm ci --include=dev
+        npx eslint gis-web/*.js
 
     - name: Run Tests
       run: |
