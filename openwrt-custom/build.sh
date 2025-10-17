@@ -1,20 +1,28 @@
 #!/bin/sh
-# Basic OpenWrt build script for ath79/generic target
-# Assumes OpenWrt source is in /builder (clone via git if needed)
-# Usage: ./build.sh
+# Basic OpenWrt build for ath79/generic (customized for UAV mesh)
 
-set -e  # Exit on error
+set -e
 
-echo "Building OpenWrt firmware for ath79/generic..."
+echo "Starting OpenWrt build..."
 
-# Update feeds (if feeds.conf exists)
-if [ -f feeds.conf.default ]; then
-    ./scripts/feeds update -a
-    ./scripts/feeds install -a
+# Clone OpenWrt source if not present (for CI/full build)
+if [ ! -d .git ]; then
+  git clone https://git.openwrt.org/openwrt/openwrt.git .
 fi
 
-# Build image (use your device PROFILE, e.g., "generic" for sim)
+# Update feeds (add custom feeds if feeds.conf.default exists)
+if [ -f feeds.conf.default ]; then
+  ./scripts/feeds update -a
+  ./scripts/feeds install -a
+fi
+
+# Apply base config if present
+if [ -f config.seed ]; then
+  cp config.seed .config
+fi
+
+# Build
 make defconfig
 make -j$(nproc) image PROFILE="generic" V=s
 
-echo "Build complete! Images in bin/targets/ath79/generic/"
+echo "Build complete! Check bin/targets/ath79/generic/"

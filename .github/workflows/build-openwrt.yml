@@ -47,6 +47,7 @@ jobs:
       run: |
         docker run --rm -v "$(pwd)/openwrt-custom:/builder" openwrt/sdk:ath79-generic /bin/bash -c "
           cd /builder && 
+          chmod +x build.sh &&
           ./build.sh
         "
 
