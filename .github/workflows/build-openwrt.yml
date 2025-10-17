@@ -47,7 +47,23 @@ jobs:
       run: |
         docker run --rm -v "$(pwd)/openwrt-custom:/builder" openwrt/sdk:ath79-generic /bin/bash -c "
           cd /builder && 
-          ./build.sh
+          # Clone OpenWrt source if not present
+          if [ ! -d .git ]; then
+            git clone https://git.openwrt.org/openwrt/openwrt.git .
+            git checkout stable-v23.05
+          fi
+          # Update feeds and install mesh packages
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a luci-app-mesh11sd kmod-80211s  # Custom for 802.11s
+          # Apply seed config if present
+          if [ -f config.seed ]; then
+            cp config.seed .config
+          fi
+          # Build firmware
+          make defconfig
+          make -j\$(nproc) image PROFILE=\"generic\" V=s
+          echo 'Build complete! Firmware in bin/targets/ath79/generic/'
+          ls -la bin/targets/ath79/generic/*.bin
         "
 
     - name: Upload Firmware Artifacts
