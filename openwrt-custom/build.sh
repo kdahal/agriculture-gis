@@ -1,28 +1,28 @@
 #!/bin/sh
-# Basic OpenWrt build for ath79/generic (customized for UAV mesh)
+# Basic OpenWrt build for ath79/generic (UAV mesh optimized)
 
 set -e
 
-echo "Starting OpenWrt build..."
+echo "Starting OpenWrt build for agriculture-gis..."
 
-# Clone OpenWrt source if not present (for CI/full build)
+# Clone OpenWrt source if not present (CI needs this)
 if [ ! -d .git ]; then
   git clone https://git.openwrt.org/openwrt/openwrt.git .
+  git checkout stable-v23.05  # Use stable branch for reliability
 fi
 
-# Update feeds (add custom feeds if feeds.conf.default exists)
-if [ -f feeds.conf.default ]; then
-  ./scripts/feeds update -a
-  ./scripts/feeds install -a
-fi
+# Update feeds (custom for mesh: add 802.11s packages)
+./scripts/feeds update -a
+./scripts/feeds install -a luci-app-mesh11sd kmod-80211s  # Example mesh packages
 
-# Apply base config if present
+# Apply seed config if present
 if [ -f config.seed ]; then
   cp config.seed .config
 fi
 
-# Build
+# Build firmware
 make defconfig
 make -j$(nproc) image PROFILE="generic" V=s
 
-echo "Build complete! Check bin/targets/ath79/generic/"
+echo "Build complete! Firmware in bin/targets/ath79/generic/"
+ls -la bin/targets/ath79/generic/*.bin  # List outputs for CI
